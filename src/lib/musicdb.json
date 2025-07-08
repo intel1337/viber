@@ -1,0 +1,20 @@
+[
+  {
+    "path": "music/supershy.mp3",
+    "image": "https://cdn-images.dzcdn.net/images/cover/37e446fe36cee17b6215e5d506d18354/0x1900-000000-80-0-0.jpg",
+    "artist": "NewJeans",
+    "title": "Super Shy"
+  },
+  {
+    "path": "music/impala.mp3",
+    "image": "https://static.fnac-static.com/multimedia/Images/FR/NR/7a/bc/1c/18660474/1540-1/tsp20250129101241/Crevecoeur.jpg",
+    "artist": "Adèle Castillon",
+    "title": "Impala"
+  },
+  {
+    "path": "music/mai.mp3",
+    "image":"https://m.media-amazon.com/images/I/71EztzIXkiL._UF1000,1000_QL80_.jpg",
+    "artist": "Video Club",
+    "title" : "Mai"
+  }
+] 
