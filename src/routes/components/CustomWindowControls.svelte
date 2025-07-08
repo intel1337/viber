@@ -70,7 +70,7 @@
 }
 .window-controls button {
   -webkit-app-region: no-drag;
-  background: #ffb2ec;
+  background: rgba(255, 178, 236, 0.85); 
   border: none;
   border-radius: 50%;
   width: 32px;
