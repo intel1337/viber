@@ -1,6 +1,8 @@
 # Viber Music Player
 
 A modern, cute, and responsive music player built with SvelteKit and Electron, styled for an iPhone-like look. Features a custom pink UI, cross-component state sync, and a fully custom window chrome for desktop.
+<img width="1469" alt="image" src="https://github.com/user-attachments/assets/f2588bac-b0a6-47ba-ae36-f765630470b8" />
+
 
 ---
 
