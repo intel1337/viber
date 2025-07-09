@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, ipcMain } from 'electron';
+import { app, BrowserWindow, Menu, ipcMain, screen } from 'electron';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -7,9 +7,14 @@ const __dirname = dirname(__filename);
 
 function createWindow() {
   // iPhone 14 Pro dimensions (390 x 844 points, but use pixels for desktop)
+  const { width: screenWidth } = screen.getPrimaryDisplay().workAreaSize;
+  const winWidth = 390;
+  const winHeight = 750;
   const win = new BrowserWindow({
-    width: 390,
-    height: 750,
+    width: winWidth,
+    height: winHeight,
+    x: Math.round((screenWidth - winWidth) / 2),
+    y: 100,
     resizable: true,
     fullscreenable: false,
     frame: false, // No native OS window controls
@@ -39,7 +44,7 @@ function createWindow() {
     if (action === 'resize-tiny') {
       if (win.isMaximized()) win.unmaximize();
       win.setResizable(true);
-      win.setBounds({ width: 430, height: 230 });
+      win.setBounds({ width: 430, height: 100 });
     }
     if (action === 'resize-phone') {
       if (win.isMaximized()) win.unmaximize();
@@ -49,11 +54,9 @@ function createWindow() {
   });
 
   // Load the Svelte app (assume Vite dev server for dev, or file for prod)
-  if (process.env.NODE_ENV === 'development') {
-    win.loadURL('http://localhost:5173');
-  } else {
-    win.loadFile(join(__dirname, 'output/client/index.html'));
-  }
+  if (1+1===2) {
+    win.loadURL('https://viber.aetherweb.dev');
+  } 
 
   // Optional: Open DevTools in development
 

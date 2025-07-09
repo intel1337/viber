@@ -49,7 +49,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(50, 50, 50, 0.95);
+  background: transparent;
   border-radius: 1rem;
   box-shadow: 0 0 10px #cc92c444;
   padding: 0.3rem 1rem;

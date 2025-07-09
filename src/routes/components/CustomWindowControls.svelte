@@ -1,6 +1,7 @@
 <script>
   import Fa from 'svelte-fa';
   import { faTimes, faMinus, faBatteryFull, faCompressAlt, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+  import { isTinyMode } from './isTinyMode.js';
   
 
   // Only works in Electron
@@ -39,10 +40,12 @@
   let isMini = false;
   function resizeMini() {
     isMini = true;
+    isTinyMode.set(true);
     send('resize-mini');
   }
   function resizePhone() {
     isMini = false;
+    isTinyMode.set(false);
     send('resize-phone');
   }
 
@@ -66,12 +69,13 @@
 
 <style>
 .window-controls-bar {
-  position: sticky;
+  position: fixed;
   top: 0;
-  width: 100%;
+  left: 0;
+  width: 100vw;
   height: 50px;
   -webkit-app-region: drag;
-  z-index: 1100;
+  z-index: 1400;
   display: flex;
   align-items: center;
   padding-left: 10px;
@@ -87,9 +91,9 @@
   background: rgba(255, 178, 236, 0.85); 
   border: none;
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  color: black;
+  width: 28px;
+  height: 28px;
+  color: white;
   font-size: 1.1rem;
   display: flex;
   align-items: center;

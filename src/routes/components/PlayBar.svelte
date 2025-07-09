@@ -14,16 +14,16 @@
     volume = state.volume;
     trackIndex = state.trackIndex;
   });
-  let showVolume = false;
+  let showVolume = true;
   let intervalId = null;
   let audio;
   let lastSetByAudio = false;
   let lastSetByAudioVolume = false;
   let isTiny = false;
   onMount(() => {
-    isTiny = window.innerWidth <= 440 && window.innerHeight <= 240;
+    isTiny = window.innerHeight <= 240;
     window.addEventListener('resize', () => {
-      isTiny = window.innerWidth <= 440 && window.innerHeight <= 240;
+      isTiny = window.innerHeight <= 240;
     });
   });
 
@@ -42,6 +42,12 @@
       isPlaying: false,
       trackIndex: index
     }));
+    // If we should be playing, play immediately
+    if (isPlaying) {
+      setTimeout(() => {
+        audio.play().catch(() => {});
+      }, 100);
+    }
   }
 
   function next() {
@@ -77,9 +83,12 @@
       playerState.update(state => ({ ...state, duration: audio.duration }));
     });
     audio.addEventListener('ended', () => {
-      playerState.update(state => ({ ...state, isPlaying: false }));
-      // Auto-next on end
+      // Auto-next and auto-play
       next();
+      playerState.update(state => ({ ...state, isPlaying: true }));
+      setTimeout(() => {
+        if (audio) audio.play().catch(() => {});
+      }, 100);
     });
     audio.addEventListener('error', (e) => {
       console.error('Audio error:', e);
@@ -139,6 +148,9 @@
 <div class="playbar">
   {#if isTiny}
     <img class="tiny-cover" src={currentTrack.image} alt="cover" />
+    <div class="tiny-track-info">
+      <span class="tiny-title">{currentTrack.title}</span> - <span class="tiny-artist">{currentTrack.artist}</span>
+    </div>
   {/if}
   <button on:click={prev} aria-label="Previous"><Fa icon={faBackward} /></button>
   <button on:click={togglePlay} aria-label={isPlaying ? 'Pause' : 'Play'}>
@@ -149,6 +161,7 @@
   <button on:click={toggleVolumeSlider} id="volumebtn" aria-label="Volume"><Fa icon={faVolumeUp} /></button>
   {#if showVolume}
     <input type="range" min="0" max="100" value={volume} on:input={onVolumeInput} class="slider volume-slider" style="width:100px; margin-left:0.5rem;" />
+    
   {/if}
 </div>
 
@@ -160,7 +173,7 @@
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    background: #383838;
+    background: transparent;
     padding: 1rem 2rem;
     border-radius: 2rem;
 
@@ -299,7 +312,7 @@
       width: 90px;
     }
   }
-  @media (max-width: 440px) and (max-height: 240px) {
+  @media (max-width: 1920px) and (max-height: 150px) {
     .playbar {
       flex-direction: row;
       align-items: center;
@@ -325,8 +338,32 @@
       font-size: 1.1rem;
       padding: 0.2rem;
     }
-    .slider, .volume-slider {
+    .slider {
       display: none;
     }
+    .volume-slider {
+      display: inline-block !important;
+    }
+  }
+  /* Tiny mode track info */
+  .tiny-track-info {
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-left: 0.7rem;
+    margin-right: 0.7rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+    display: inline-block;
+  }
+  .tiny-title {
+    color: #fff;
+    font-weight: 600;
+  }
+  .tiny-artist {
+    color: #ffb2ec;
   }
 </style> 
+

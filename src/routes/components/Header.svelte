@@ -18,14 +18,16 @@
         justify-content: center;
         font-size: 40px;
         width: 100%;
-        background-color: rgb(41, 41, 41);
+        background-color: transparent;
         color: white;
         gap: 2%;
         height: 10vh;
         transition: 0.5s ease-in-out;
-        position: sticky;
+        position: fixed;
         top: 0;
-        z-index: 1000;
+        left: 0;
+        width: 100vw;
+        z-index: 1200;
 
 
     }

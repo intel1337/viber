@@ -5,7 +5,7 @@ import { isTinyMode } from './isTinyMode.js';
 import { onMount } from 'svelte';
 import musicdb from '$lib/musicdb.json';
 import Fa from 'svelte-fa';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faMusic } from '@fortawesome/free-solid-svg-icons';
 
 let trackIndex;
 playerState.subscribe(state => {
@@ -34,9 +34,11 @@ onMount(() => {
 
 <div class="tiny-mode-bar">
   <button class="back-btn" aria-label="Back to Phone" on:click={backToPhone}><Fa icon={faArrowLeft} /></button>
-  <img class="tiny-cover" src={currentTrack.image} alt="cover" />
+  <Fa icon={faMusic} class="tiny-favicon" color="#ffb2ec" />
   <PlayBar />
+  
 </div>
+
 
 <style>
 .tiny-mode-bar {
@@ -75,5 +77,34 @@ onMount(() => {
 }
 .back-btn:hover {
   background: #383838;
+}
+/* Ensure volume menu is visible in tiny mode */
+@media (max-width: 440px) and (max-height: 240px) {
+  .playbar .volume-slider {
+    display: inline-block !important;
+  }
+}
+.tiny-favicon {
+  color: #ffb2ec;
+  font-size: 1.2rem;
+  margin-right: 0.7rem;
+}
+.tiny-song-info {
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-left: 2.2rem;
+  margin-top: 0.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 320px;
+}
+.tiny-title {
+  color: #fff;
+  font-weight: 600;
+}
+.tiny-artist {
+  color: #ffb2ec;
 }
 </style> 

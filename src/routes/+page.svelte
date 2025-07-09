@@ -12,7 +12,6 @@
       isTinyMode.set(window.innerWidth <= 440 && window.innerHeight <= 240);
     }
     onMount(() => {
-      window.scrollTo({ top: 50, behavior: 'smooth' });
       checkTinyMode();
       window.addEventListener('resize', checkTinyMode);
       // Block all scrolling except system scrollbar
