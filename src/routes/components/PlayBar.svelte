@@ -19,6 +19,13 @@
   let audio;
   let lastSetByAudio = false;
   let lastSetByAudioVolume = false;
+  let isTiny = false;
+  onMount(() => {
+    isTiny = window.innerWidth <= 440 && window.innerHeight <= 240;
+    window.addEventListener('resize', () => {
+      isTiny = window.innerWidth <= 440 && window.innerHeight <= 240;
+    });
+  });
 
   function loadTrack(index) {
     if (audio) {
@@ -130,6 +137,9 @@
 </script>
 
 <div class="playbar">
+  {#if isTiny}
+    <img class="tiny-cover" src={currentTrack.image} alt="cover" />
+  {/if}
   <button on:click={prev} aria-label="Previous"><Fa icon={faBackward} /></button>
   <button on:click={togglePlay} aria-label={isPlaying ? 'Pause' : 'Play'}>
     <Fa icon={isPlaying ? faPause : faPlay} />
@@ -269,5 +279,54 @@
   }
   #volumebtn{
     transition: 0.4s ease-in-out;
+  }
+  /* Responsive for PC/Desktop */
+  @media (min-width: 900px) {
+    .playbar {
+      padding: 1.2rem 2.2rem;
+      gap: 1.2rem;
+      max-width: 420px;
+      margin: 0 auto;
+      border-radius: 1.5rem;
+    }
+    .playbar button {
+      font-size: 1.4rem;
+    }
+    .slider {
+      width: 180px;
+    }
+    .volume-slider {
+      width: 90px;
+    }
+  }
+  @media (max-width: 440px) and (max-height: 240px) {
+    .playbar {
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0.3rem 0.5rem;
+      gap: 0.5rem;
+      min-width: 320px;
+      max-width: 430px;
+      min-height: 56px;
+      background: #383838;
+      border-radius: 1rem;
+      box-shadow: 0 0 10px #cc92c444;
+    }
+    .tiny-cover {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      object-fit: cover;
+      box-shadow: 0 2px 8px #cc92c422;
+      margin-right: 0.5rem;
+    }
+    .playbar button {
+      font-size: 1.1rem;
+      padding: 0.2rem;
+    }
+    .slider, .volume-slider {
+      display: none;
+    }
   }
 </style> 

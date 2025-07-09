@@ -15,7 +15,7 @@
         justify-content: center;
         font-size: 40px;
         width: 100%;
-        background-color: rgb(41, 41, 41);
+        background-color: transparent;
         color: white;
         gap: 1%;
         height: 10vh;

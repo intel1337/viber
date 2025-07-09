@@ -220,4 +220,34 @@
         min-width: 40px;
         text-align: center;
     }
+    @media (min-width: 900px) {
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+  }
+  .flexb {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .opt {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 1.2rem 1.5rem;
+    height: 150px;
+    border-radius: 1.5rem;
+  }
+  .slider-row {
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+}
 </style>

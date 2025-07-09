@@ -10,7 +10,7 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 390,
     height: 750,
-    resizable: false,
+    resizable: true,
     fullscreenable: false,
     frame: false, // No native OS window controls
     webPreferences: {
@@ -32,9 +32,20 @@ function createWindow() {
 
   // IPC for custom window controls
   ipcMain.on('window-action', (event, action) => {
+    console.log('Window action:', action); // Debug log
     if (action === 'close') win.close();
     if (action === 'minimize') win.minimize();
     if (action === 'maximize') win.isMaximized() ? win.unmaximize() : win.maximize();
+    if (action === 'resize-tiny') {
+      if (win.isMaximized()) win.unmaximize();
+      win.setResizable(true);
+      win.setBounds({ width: 430, height: 230 });
+    }
+    if (action === 'resize-phone') {
+      if (win.isMaximized()) win.unmaximize();
+      win.setResizable(true);
+      win.setBounds({ width: 390, height: 750 });
+    }
   });
 
   // Load the Svelte app (assume Vite dev server for dev, or file for prod)

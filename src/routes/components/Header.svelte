@@ -23,6 +23,9 @@
         gap: 2%;
         height: 10vh;
         transition: 0.5s ease-in-out;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
 
 
     }

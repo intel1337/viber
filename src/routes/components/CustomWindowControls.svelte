@@ -1,6 +1,6 @@
 <script>
   import Fa from 'svelte-fa';
-  import { faTimes, faMinus, faBatteryFull } from '@fortawesome/free-solid-svg-icons';
+  import { faTimes, faMinus, faBatteryFull, faCompressAlt, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
   
 
   // Only works in Electron
@@ -36,12 +36,27 @@
   
 },10000)
 
+  let isMini = false;
+  function resizeMini() {
+    isMini = true;
+    send('resize-mini');
+  }
+  function resizePhone() {
+    isMini = false;
+    send('resize-phone');
+  }
+
 </script>
 
 <div class="window-controls-bar">
   <div class="window-controls">
     <button class="close" aria-label="Fermer" on:click={() => send('close')}><Fa icon={faTimes} /></button>
     <button class="minimize" aria-label="Réduire" on:click={() => send('minimize')}><Fa icon={faMinus} /></button>
+    {#if !isMini}
+      <button class="mini" aria-label="Mini Taskbar" on:click={resizeMini}><Fa icon={faCompressAlt} /></button>
+    {:else}
+      <button class="back" aria-label="Back to Phone" on:click={resizePhone}><Fa icon={faArrowLeft} /></button>
+    {/if}
   </div>
   <div class="window-status">
     <span class="clock">{time}</span>
@@ -51,13 +66,12 @@
 
 <style>
 .window-controls-bar {
-  position: absolute;
+  position: sticky;
   top: 0;
-  left: 0;
-  width: 100vw;
+  width: 100%;
   height: 50px;
   -webkit-app-region: drag;
-  z-index: 1000;
+  z-index: 1100;
   display: flex;
   align-items: center;
   padding-left: 10px;
